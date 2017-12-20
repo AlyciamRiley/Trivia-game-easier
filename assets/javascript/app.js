@@ -7,14 +7,17 @@ var unansweredCounter
 var intervalId
 var newQuestion = "";
 var timer = 10;
-var questions = [
-    'Who recorded the original version of the song "Hound Dog"?',
-    'Who was marketed by her record company as the "female Elvis"?',
+var questions = [{
+    question: 'Who recorded the original version of the song "Hound Dog"?',
+    answers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
+}];
+   /* 'Who was marketed by her record company as the "female Elvis"?',
     'Who sang the 1957 song Whole Lotta Shakin Goin On?',
     '"Rebel-Rouser", "Cannonball", and "Because They Are Young" were all hits by which artist?',
     'Who spent three weeks at No.1 in 1957 with “That’ll be the Day”?',
-];
+];*/
 
+/*
 var answers = [
     'Willa Mae "Big Mama" Thornton', //0
     'Janis Martin',//1
@@ -31,7 +34,8 @@ var answers = [
     'Little Richard',//12
     'Fats Domino'//13
    
-]
+];
+*/
 
 
 //Start  button starts game
@@ -72,7 +76,12 @@ function stopTimer() {
 
 function renderGame() {
 
-$("#q1").text(questions)
+//for (i=0; i < question1.answers.length; i++);
+
+$("#question").text(questions.question);
+//$("#answer").text(question1.answers[i]);
+
+   console.log("render game is working");
     
 }
 
