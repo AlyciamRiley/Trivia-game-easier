@@ -1,15 +1,19 @@
 window.onload = function () {
 
 //define global variables\
-var correctCounter
+/*var correctCounter
 var incorrectCounter
-var unansweredCounter
+var unansweredCounter*/
 var intervalId
 var newQuestion = "";
 var timer = 10;
 var questions = [{
     question: 'Who recorded the original version of the song "Hound Dog"?',
-    answers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
+    correctAnswer: 'Willa Mae "Big Mama" Thornton', 
+    incorrectAnswers: ['Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
+    
+    
+    //incorrect property
 }];
    /* 'Who was marketed by her record company as the "female Elvis"?',
     'Who sang the 1957 song Whole Lotta Shakin Goin On?',
@@ -76,20 +80,37 @@ function stopTimer() {
 
 function renderGame() {
 
-//for (i=0; i < question1.answers.length; i++);
-
-$("#question").text(questions.question);
-//$("#answer").text(question1.answers[i]);
-
-   console.log("render game is working");
     
+for (i=0; i < questions.length; i++){
+    $('#question').append('<h2>' + questions[i].question + '</h2>');
+    
+    $('#correct').html('<button>' + questions[i].correctAnswer + '</button><br>')
+    
+    for (j=0; j < questions[i].incorrectAnswers.length; j++){
+    
+    $('#answerBtn').append('<but    ton>' + questions[i].incorrectAnswers[j] + '</button><br>');
+        
+    
+        
+        
+        
+    //can I target these button tags in css??
+   //if else statement? 
+    
+
+}
+
+
+
+   console.log("render game is working");   
+            
 }
 
 
     
 }
-    
-//Questions and answers are displayed
+ 
+}
 
 
     
