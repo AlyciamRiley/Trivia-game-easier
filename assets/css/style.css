@@ -79,7 +79,7 @@ h1 {
     padding: 15px;
 }
 
-#answerBtn {
+.btn {
    background-color: #FFF; 
     border: none;
     color: #91d0e2;
@@ -91,14 +91,16 @@ h1 {
 }
 
 
-#countdown {
-    font-size: 95px;
-}
-
 .btn:hover, .btn:focus, .btn:active {
     color: #fff;
     background-color: #91d0e2;
     border-color: #91d0e2; 
 }
 
+
+
+
+#countdown {
+    font-size: 95px;
+}
 
