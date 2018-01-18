@@ -1,38 +1,34 @@
 window.onload = function () {
 
-    //define global variables
-    /*
-    var correctCounter
-    var incorrectCounter
-    var unansweredCounter*/
+
     var intervalId
     var timer = 10;
     var questions = [{
 
             question: 'Who recorded the original version of the song "Hound Dog"?',
-            incorrectAnswers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
+            answers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
             correctAnswers: 'Willa Mae "Big Mama" Thornton',
 }, {
 
             question: 'Who was marketed by her record company as the "female Elvis"?',
-            incorrectAnswers: ['Wanda Jackson', 'Janis Martin', 'Patsy Cline', 'Diana Ross', 'Miley Cyrus'],
+            answers: ['Wanda Jackson', 'Janis Martin', 'Patsy Cline', 'Diana Ross', 'Miley Cyrus'],
             correctAnswers: 'Janis Martin',
 }, {
 
             question: 'Who sang the 1957 song Whole Lotta Shakin Goin On?',
-            incorrectAnswers: ['Elvis Presley', 'Jerry Lee Lewis', 'Gene Vincent', 'Buddy Holly', 'Miley Cyrus'],
+            answers: ['Elvis Presley', 'Jerry Lee Lewis', 'Gene Vincent', 'Buddy Holly', 'Miley Cyrus'],
             correctAnswers: 'Jerry Lee Lewis',
 }, {
 
             question: '"Rebel-Rouser", "Cannonball", and "Because They Are Young" were all hits by which artist?',
-            incorrectAnswers: ['The Big Bopper', 'Jerry Lee Lewis', 'Gene Vincent', 'Duane Eddy', 'Miley Cyrus'],
+            answers: ['The Big Bopper', 'Jerry Lee Lewis', 'Gene Vincent', 'Duane Eddy', 'Miley Cyrus'],
             correctAnswers: 'Duane Eddy',
 },
 
         {
 
             question: 'Who spent three weeks at No.1 in 1957 with “That’ll be the Day”?',
-            incorrectAnswers: ['Buddy Holly', 'June Carter', 'Little Richard', 'Fats Domino', 'Miley Cyrus'],
+            answers: ['Buddy Holly', 'June Carter', 'Little Richard', 'Fats Domino', 'Miley Cyrus'],
             correctAnswers: 'Buddy Holly',
 }]
 
@@ -46,7 +42,7 @@ window.onload = function () {
         $("#startGame").replaceWith();
         startTimer();
         decrement();
-        renderGame();
+        firstQuestion();
     })
 
     //this is your timer.  It is working.  Do not touch it. 
@@ -71,16 +67,21 @@ window.onload = function () {
         nextQuestion();
     }
 
-
-
+    function firstQuestion (){
+        questions = Math.floor((Math.random() * 5) + 1);
+        
+        $('#question').text(questions);
+        console.log(firstQuestion);
+        
+    }
 
 
 
     function renderGame() {
-        //need to clear out old questions to replace with new
-        //all questions are displaying at once - how to fix? Change array parameters...?
 
-        for (i = 0; i < questions.length; i++) {
+
+       /* for (i = 0; i < questions.length; i++) {
+            $('#wrapper').empty();
             $('#question').append('<h2>' + questions[i].question + '</h2>');
 
             $('#correct').html('<button>' + questions[i].correctAnswer + '</button><br>')
@@ -92,11 +93,7 @@ window.onload = function () {
 
             }
 
-        };
-
-        //can I target these button tags with css??
-        //if else statement? How do I target the buttons with an if else? 
-        //How do I do an onclick with these buttons and fit it in with all of this extra code?
+        };*/
 
 
 
@@ -104,8 +101,6 @@ window.onload = function () {
 
     function nextQuestion() {
 
-       
-        //Replace with currently leaves page blank. Would like to replace with NEW question and answers.  
         $('#question').empty();
         $('#correct').empty();
         $('#answerBtn').empty();
@@ -114,6 +109,7 @@ window.onload = function () {
         startTimer();
 
         console.log("nextQuestion is running!")
+        console.log(nextQuestion);
 
     }
 
