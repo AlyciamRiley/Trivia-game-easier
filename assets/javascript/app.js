@@ -3,7 +3,7 @@ window.onload = function () {
 
     var intervalId
     var timer = 10;
-    var questions = [{
+    var questionArray = [{
 
             question: 'Who recorded the original version of the song "Hound Dog"?',
             answers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
@@ -48,7 +48,6 @@ window.onload = function () {
     //this is your timer.  It is working.  Do not touch it. 
     function startTimer() {
         intervalId = setInterval(decrement, 1000);
-        console.log("startTimer is working.")
     }
 
     function decrement() {
@@ -58,60 +57,41 @@ window.onload = function () {
         if (timer === 0) {
             stopTimer();
         }
-        console.log("decrement is working.")
     }
 
     function stopTimer() {
         clearInterval(intervalId);
-        console.log("stop timer is working.")
         nextQuestion();
     }
 
     function firstQuestion (){
-        questions = Math.floor((Math.random() * 5) + 1);
+       
+      
+        $.each(questionArray, function(index){
+             var randomQuestion = questionArray[Math.floor(Math.random() * questionArray.length)];
         
-        $('#question').text(questions);
-        console.log(firstQuestion);
+         $("#question-display").html(JSON.stringify(randomQuestion.question));
+            
+        })
+        
         
     }
 
 
 
-    function renderGame() {
-
-
-       /* for (i = 0; i < questions.length; i++) {
-            $('#wrapper').empty();
-            $('#question').append('<h2>' + questions[i].question + '</h2>');
-
-            $('#correct').html('<button>' + questions[i].correctAnswer + '</button><br>')
-
-            for (j = 0; j < questions[i].incorrectAnswers.length; j++) {
-
-                $('#answerBtn').append('<button>' + questions[i].incorrectAnswers[j] + '</button><br>');
-
-
-            }
-
-        };*/
-
-
-
-    }
-
+/*
     function nextQuestion() {
 
-        $('#question').empty();
+        $('#question-display').empty();
         $('#correct').empty();
         $('#answerBtn').empty();
         timer = 10;
-        renderGame();
         startTimer();
 
         console.log("nextQuestion is running!")
         console.log(nextQuestion);
 
-    }
+    }*/
 
 
 }
