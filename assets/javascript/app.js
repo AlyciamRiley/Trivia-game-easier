@@ -7,30 +7,30 @@ window.onload = function () {
 
             question: 'Who recorded the original version of the song "Hound Dog"?',
             answers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
-            correctAnswers: 'Willa Mae "Big Mama" Thornton',
+            correctAnswer: 'Willa Mae "Big Mama" Thornton',
 }, {
 
             question: 'Who was marketed by her record company as the "female Elvis"?',
             answers: ['Wanda Jackson', 'Janis Martin', 'Patsy Cline', 'Diana Ross', 'Miley Cyrus'],
-            correctAnswers: 'Janis Martin',
+            correctAnswer: 'Janis Martin',
 }, {
 
             question: 'Who sang the 1957 song Whole Lotta Shakin Goin On?',
             answers: ['Elvis Presley', 'Jerry Lee Lewis', 'Gene Vincent', 'Buddy Holly', 'Miley Cyrus'],
-            correctAnswers: 'Jerry Lee Lewis',
+            correctAnswer: 'Jerry Lee Lewis',
 }, {
 
             question: '"Rebel-Rouser", "Cannonball", and "Because They Are Young" were all hits by which artist?',
             answers: ['The Big Bopper', 'Jerry Lee Lewis', 'Gene Vincent', 'Duane Eddy', 'Miley Cyrus'],
-            correctAnswers: 'Duane Eddy',
+            correctAnswer: 'Duane Eddy',
 },
 
         {
 
             question: 'Who spent three weeks at No.1 in 1957 with “That’ll be the Day”?',
             answers: ['Buddy Holly', 'June Carter', 'Little Richard', 'Fats Domino', 'Miley Cyrus'],
-            correctAnswers: 'Buddy Holly',
-}]
+            correctAnswer: 'Buddy Holly',
+}];
 
 
 
@@ -43,6 +43,7 @@ window.onload = function () {
         startTimer();
         decrement();
         firstQuestion();
+        //renderButtons();
     })
 
     //this is your timer.  It is working.  Do not touch it. 
@@ -62,36 +63,53 @@ window.onload = function () {
     function stopTimer() {
         clearInterval(intervalId);
         nextQuestion();
+
     }
 
-    function firstQuestion (){
+    function firstQuestion() {
+        var randomQuestion = questionArray[Math.floor(Math.random() * questionArray.length)];
+        $("#question-display").html(JSON.stringify(randomQuestion.question));
+        renderButtons(randomQuestion);
+    }
+
+    function renderButtons(randomQuestion) {
+        //Cleared button div of any newly created buttons
+        $("#answer-display").empty();
+        //dynamically generates buttons for each answer
+        for (var i = 0; i < randomQuestion.answers.length; i++) {
+            var a = $("<button>");
+            //adds class to the button
+            a.addClass("btn-answer");
+            //adds a data attribute
+            a.attr("data-name", randomQuestion.answers[i]);
+            //labels button
+            a.text(randomQuestion.answers[i]);
+            //adds button to the button view div
+            $("#answer-display").append(a);
+        }
+   
+    }
+    
+    $("#answer-display").on("click", function(){
+        console.log("clicked");
+        });   
+         
        
-      
-        $.each(questionArray, function(index){
-             var randomQuestion = questionArray[Math.floor(Math.random() * questionArray.length)];
-        
-         $("#question-display").html(JSON.stringify(randomQuestion.question));
-            
-        })
-        
-        
-    }
+    };
+
+    /*
+        function nextQuestion() {
+
+            $('#question-display').empty();
+            $('#correct').empty();
+            $('#answerBtn').empty();
+            timer = 10;
+            startTimer();
+
+            console.log("nextQuestion is running!")
+            console.log(nextQuestion);
+
+        }*/
 
 
 
-/*
-    function nextQuestion() {
-
-        $('#question-display').empty();
-        $('#correct').empty();
-        $('#answerBtn').empty();
-        timer = 10;
-        startTimer();
-
-        console.log("nextQuestion is running!")
-        console.log(nextQuestion);
-
-    }*/
-
-
-}
