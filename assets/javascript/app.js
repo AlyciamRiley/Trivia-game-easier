@@ -75,13 +75,17 @@ window.onload = function () {
     function renderButtons(randomQuestion) {
         //Cleared button div of any newly created buttons
         $("#answer-display").empty();
+        
+        //access correct answer on click handler
+        $("#answer-display").data("answer", randomQuestion.correctAnswer);
+        
         //dynamically generates buttons for each answer
         for (var i = 0; i < randomQuestion.answers.length; i++) {
             var a = $("<button>");
             //adds class to the button
             a.addClass("btn-answer");
             //adds a data attribute
-            a.attr("data-name", randomQuestion.answers[i]);
+            a.data("name", randomQuestion.answers[i]);
             //labels button
             a.text(randomQuestion.answers[i]);
             //adds button to the button view div
@@ -90,12 +94,30 @@ window.onload = function () {
    
     }
     
-    $("#answer-display").on("click", function(){
-        console.log("clicked");
+    $("#answer-display").on("click", ".btn-answer", function(){
+        //get answer from clicked element
+        var answer = $(this).data("answer");
+        //get correct answer from parent element
+        var correctAnswer = $("#answer-display").data("answer");
+        //correct logic
+        
+        if (answer == correctAnswer) {
+            console.log("Correct!!");
+            
+        } else {
+            console.log("wrong");
+        }
         });   
          
        
     };
+
+//Check if correct/incorrect, update scoreboard
+//answer is clicked, move on to next question
+
+//OR...
+
+//timer runs out, move to next question...
 
     /*
         function nextQuestion() {
