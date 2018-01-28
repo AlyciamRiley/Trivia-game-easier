@@ -1,7 +1,6 @@
 window.onload = function () {
 
 
-    var intervalId
     var timer = 10;
     var questionArray = [{
 
@@ -43,8 +42,7 @@ window.onload = function () {
         startTimer();
         decrement();
         firstQuestion();
-        //renderButtons();
-    })
+    })  
 
     //this is your timer.  It is working.  Do not touch it. 
     function startTimer() {
@@ -62,7 +60,7 @@ window.onload = function () {
 
     function stopTimer() {
         clearInterval(intervalId);
-        nextQuestion();
+        /*nextQuestion();*/
 
     }
 
@@ -75,42 +73,53 @@ window.onload = function () {
     function renderButtons(randomQuestion) {
         //Cleared button div of any newly created buttons
         $("#answer-display").empty();
-        
+
         //access correct answer on click handler
         $("#answer-display").data("answer", randomQuestion.correctAnswer);
-        
+
         //dynamically generates buttons for each answer
         for (var i = 0; i < randomQuestion.answers.length; i++) {
             var a = $("<button>");
             //adds class to the button
-            a.addClass("btn-answer");
+
             //adds a data attribute
             a.data("name", randomQuestion.answers[i]);
+
             //labels button
             a.text(randomQuestion.answers[i]);
-            //adds button to the button view div
+            a.val(randomQuestion.answers[i]);
+            //if else tatement, randomQuestion.answers is equal to randomQuestion.correctAnswer, then add btn-correct answer
+
+            if (randomQuestion.answers[i] == randomQuestion.correctAnswer) {
+                a.addClass("btn-correctAnswer");
+                a.addClass("btn-answer");
+            } else {
+                a.addClass("btn-answer");
+            };
+
             $("#answer-display").append(a);
         }
-   
+
     }
-    
-    $("#answer-display").on("click", ".btn-answer", function(){
+
+    $("#answer-display").on("click", ".btn-answer", function (event) {
         //get answer from clicked element
-        var answer = $(this).data("answer");
+        event.preventDefault();
+        var answer = $(".btn-answer").val;
         //get correct answer from parent element
-        var correctAnswer = $("#answer-display").data("answer");
+        var correctAnswer = $(this).hasClass("btn-correctAnswer");
+        console.log(correctAnswer);
         //correct logic
-        
-        if (answer == correctAnswer) {
+        if (correctAnswer) {
             console.log("Correct!!");
-            
+
         } else {
             console.log("wrong");
         }
-        });   
-         
-       
-    };
+    });
+
+
+};
 
 //Check if correct/incorrect, update scoreboard
 //answer is clicked, move on to next question
@@ -119,19 +128,16 @@ window.onload = function () {
 
 //timer runs out, move to next question...
 
-    /*
-        function nextQuestion() {
+/*
+    function nextQuestion() {
 
-            $('#question-display').empty();
-            $('#correct').empty();
-            $('#answerBtn').empty();
-            timer = 10;
-            startTimer();
+        $('#question-display').empty();
+        $('#correct').empty();
+        $('#answerBtn').empty();
+        timer = 10;
+        startTimer();
 
-            console.log("nextQuestion is running!")
-            console.log(nextQuestion);
+        console.log("nextQuestion is running!")
+        console.log(nextQuestion);
 
-        }*/
-
-
-
+    }*/
