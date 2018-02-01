@@ -2,6 +2,11 @@ window.onload = function () {
 
 
     var timer = 10;
+    var numberCorrect =0;
+    var numberIncorrect =0;
+    var totalScore = 0;
+
+    
     var questionArray = [{
 
             question: 'Who recorded the original version of the song &quot;Hound Dog&quot;?',
@@ -59,8 +64,7 @@ window.onload = function () {
     }
 
     function stopTimer() {
-        clearInterval(intervalId);
-        /*nextQuestion();*/
+      nextQuestion();
 
     }
 
@@ -88,7 +92,7 @@ window.onload = function () {
             //labels button
             a.text(randomQuestion.answers[i]);
             a.val(randomQuestion.answers[i]);
-            //if else tatement, randomQuestion.answers is equal to randomQuestion.correctAnswer, then add btn-correct answer
+            //if else tatement, randomQuestion.answers is e qual to randomQuestion.correctAnswer, then add btn-correct answer
 
             if (randomQuestion.answers[i] == randomQuestion.correctAnswer) {
                 a.addClass("btn-correctAnswer");
@@ -111,33 +115,33 @@ window.onload = function () {
         console.log(correctAnswer);
         //correct logic
         if (correctAnswer) {
-            console.log("Correct!!");
+            $("#alert-box").text("You got it, daddy-o!");
+            numberCorrect++;
+           
 
         } else {
-            console.log("wrong");
+            $("#alert-box").text("You're cruisin' for a bruisin'- that answer is wrong!");
+            numberIncorrect++;
+            
         }
     });
+    
 
-
-};
-
-//Check if correct/incorrect, update scoreboard
-//answer is clicked, move on to next question
-
-//OR...
-
-//timer runs out, move to next question...
-
-/*
     function nextQuestion() {
 
         $('#question-display').empty();
-        $('#correct').empty();
-        $('#answerBtn').empty();
+        $('#answer-display').empty();
+        $('#alert-box').empty();
         timer = 10;
         startTimer();
+        firstQuestion();
 
         console.log("nextQuestion is running!")
         console.log(nextQuestion);
 
-    }*/
+    };
+
+
+
+};
+
