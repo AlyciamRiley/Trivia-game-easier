@@ -79,7 +79,7 @@ h1 {
     padding: 15px;
 }
 
-.btn {
+.btn, .btn-answer  {
    background-color: #FFF; 
     border: none;
     color: #91d0e2;
@@ -90,8 +90,17 @@ h1 {
     font-weight: 700;
 }
 
+.btn-answer {
+    border: 3px solid #91d0e2;
+    border-radius: 3px;
+    color: #91d0e2;
+    padding: 5px;
+    margin: 5px;
+    
+}
 
-.btn:hover, .btn:focus, .btn:active {
+
+.btn:hover, .btn:focus,  .btn-answer:hover,  .btn-answer:focus {
     color: #fff;
     background-color: #91d0e2;
     border-color: #91d0e2; 
