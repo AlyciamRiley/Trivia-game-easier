@@ -1,12 +1,12 @@
 window.onload = function () {
 
 
-    var timer = 10;
-    var numberCorrect =0;
-    var numberIncorrect =0;
+    var timer = 11;
+    var numberCorrect = 0;
+    var numberIncorrect = 0;
     var totalScore = 0;
 
-    
+
     var questionArray = [{
 
             question: 'Who recorded the original version of the song &quot;Hound Dog&quot;?',
@@ -47,7 +47,7 @@ window.onload = function () {
         startTimer();
         decrement();
         firstQuestion();
-    })  
+    })
 
     //this is your timer.  It is working.  Do not touch it. 
     function startTimer() {
@@ -64,7 +64,9 @@ window.onload = function () {
     }
 
     function stopTimer() {
-      nextQuestion();
+        clearInterval(intervalId);
+        $('#answer-display').fadeIn(3000);
+        nextQuestion();
 
     }
 
@@ -117,31 +119,27 @@ window.onload = function () {
         if (correctAnswer) {
             $("#alert-box").text("You got it, daddy-o!");
             numberCorrect++;
-           
+
 
         } else {
             $("#alert-box").text("You're cruisin' for a bruisin'- that answer is wrong!");
             numberIncorrect++;
-            
+
         }
     });
-    
+
 
     function nextQuestion() {
 
         $('#question-display').empty();
         $('#answer-display').empty();
         $('#alert-box').empty();
-        timer = 10;
+        timer = 11;
         startTimer();
         firstQuestion();
-
-        console.log("nextQuestion is running!")
-        console.log(nextQuestion);
 
     };
 
 
 
 };
-
