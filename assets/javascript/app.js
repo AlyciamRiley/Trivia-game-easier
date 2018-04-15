@@ -65,8 +65,8 @@ window.onload = function () {
 
     function stopTimer() {
         clearInterval(intervalId);
-        $('#answer-display').fadeIn(3000);
-        nextQuestion();
+        // $('#answer-display').fadeIn(3000);
+        // nextQuestion();
 
     }
 
@@ -119,12 +119,16 @@ window.onload = function () {
         if (correctAnswer) {
             $("#alert-box").text("You got it, daddy-o!");
             numberCorrect++;
-
+            setTimeout(nextQuestion, 2000);
+            stopTimer();
+            checkScore();
 
         } else {
             $("#alert-box").text("You're cruisin' for a bruisin'- that answer is wrong!");
             numberIncorrect++;
-
+            setTimeout(nextQuestion, 2000);
+            stopTimer();
+            checkScore();
         }
     });
 
@@ -134,11 +138,19 @@ window.onload = function () {
         $('#question-display').empty();
         $('#answer-display').empty();
         $('#alert-box').empty();
+        $('#countdown').empty();
         timer = 11;
         startTimer();
         firstQuestion();
 
     };
+
+    function checkScore() {
+        if (numberCorrect + numberIncorrect === questionArray.length) {
+            alert("Game over!");
+        }
+    }
+
 
 
 
