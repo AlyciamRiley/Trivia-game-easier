@@ -12,21 +12,25 @@ window.onload = function () {
             question: 'Who recorded the original version of the song &quot;Hound Dog&quot;?',
             answers: ['Willa Mae "Big Mama" Thornton', 'Elvis Presley', 'Carl Perkins', 'Chuck Berry', 'Miley Cyrus'],
             correctAnswer: 'Willa Mae "Big Mama" Thornton',
+            alreadyAnswered: false
 }, {
 
             question: 'Who was marketed by her record company as the &quot;Female Elvis&quot;?',
             answers: ['Wanda Jackson', 'Janis Martin', 'Patsy Cline', 'Diana Ross', 'Miley Cyrus'],
             correctAnswer: 'Janis Martin',
+            alreadyAnswered: false
 }, {
 
             question: 'Who sang the 1957 song &quot;Whole Lotta Shakin Goin On&quot;?',
             answers: ['Elvis Presley', 'Jerry Lee Lewis', 'Gene Vincent', 'Buddy Holly', 'Miley Cyrus'],
             correctAnswer: 'Jerry Lee Lewis',
+            alreadyAnswered: false
 }, {
 
             question: '&quot;Rebel-Rouser&quot;, &quot;Cannonball&quot;, and &quot;Because They Are Young&quot; were all hits by which artist?',
             answers: ['The Big Bopper', 'Jerry Lee Lewis', 'Gene Vincent', 'Duane Eddy', 'Miley Cyrus'],
             correctAnswer: 'Duane Eddy',
+            alreadyAnswered: false
 },
 
         {
@@ -34,12 +38,13 @@ window.onload = function () {
             question: 'Who spent three weeks at No.1 in 1957 with &quot;That’ll be the Day&quot;?',
             answers: ['Buddy Holly', 'June Carter', 'Little Richard', 'Fats Domino', 'Miley Cyrus'],
             correctAnswer: 'Buddy Holly',
+            alreadyAnswered: false
 }];
 
 
 
 
-
+//booleans are updating, but are not sticking and array is resetting - how to fix?
     //Start  button starts game
     //clearing the content works.  Do not touch it. 
     $("#startGame").on("click", function () {
@@ -71,10 +76,19 @@ window.onload = function () {
     }
 
     function firstQuestion() {
-        var randomQuestion = questionArray[Math.floor(Math.random() * questionArray.length)];
+        //Filters out the answers that have not been answered yet
+        var filteredQuestions = questionArray.filter(word=>word.alreadyAnswered===false);
+        console.log(filteredQuestions);
+        //picks a ranom question from the filtered questions
+        var randomQuestion = filteredQuestions[Math.floor(Math.random() * filteredQuestions.length)];
+        //changes the state to true
+        this.alreadyAnswered = true;
+        //displayed current question
         $("#question-display").html(JSON.stringify(randomQuestion.question));
         renderButtons(randomQuestion);
+        console.log("already answered", this.alreadyAnswered);
     }
+
 
     function renderButtons(randomQuestion) {
         //Cleared button div of any newly created buttons
@@ -94,7 +108,7 @@ window.onload = function () {
             //labels button
             a.text(randomQuestion.answers[i]);
             a.val(randomQuestion.answers[i]);
-            //if else tatement, randomQuestion.answers is e qual to randomQuestion.correctAnswer, then add btn-correct answer
+            //if else statement, randomQuestion.answers is e qual to randomQuestion.correctAnswer, then add btn-correct answer
 
             if (randomQuestion.answers[i] == randomQuestion.correctAnswer) {
                 a.addClass("btn-correctAnswer");
@@ -119,6 +133,7 @@ window.onload = function () {
         if (correctAnswer) {
             $("#alert-box").text("You got it, daddy-o!");
             numberCorrect++;
+
             setTimeout(nextQuestion, 2000);
             stopTimer();
             checkScore();
