@@ -54,16 +54,39 @@ var questionArray = [{
 function firstQuestion() {
     for (var i =0; i < questionArray.length; i++) {
         var currentQuestion = questionArray[i].question
-        console.log(currentQuestion);
+        // console.log(currentQuestion);
         $("#question-display").html(JSON.stringify(currentQuestion));
     }
-       
 
 }
 
 firstQuestion();
 
 //render the buttons 
+
+function renderButtons(currentQuestion) {
+    // clear button div of any newly created buttons
+    $("#answer-display").empty();
+
+ 
+    //pull the current answer from array$
+    for (var j =0; j < questionArray.length; j++) {
+        var currentAnswer = questionArray[j].correctAnswer;
+        console.log(currentAnswer);
+//    //access correct answer on click handler
+//    $("#answer-display").data("answer", currentAnswer);
+       
+   //dynamically generate button for each answer
+        var a = $("<button>");
+        $("#answer-display").append(a);
+
+
+
+    }
+
+}
+
+renderButtons();
 
 // Grab the users answer - if correct, do this, if incorrect, do this
 
