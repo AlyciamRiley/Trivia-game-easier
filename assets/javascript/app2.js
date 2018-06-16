@@ -74,6 +74,7 @@ window.onload = function() {
 
   $("#startGame").on("click", function() {
     $("#startGame").replaceWith();
+
     startTimer();
     decrement();
     firstQuestion();
@@ -95,7 +96,7 @@ window.onload = function() {
 
   function stopTimer() {
     clearInterval(intervalId);
-    // nextQuestion();
+    nextQuestion();
   }
 
   function firstQuestion() {
@@ -108,12 +109,66 @@ window.onload = function() {
       $("#answer-display").empty();
       for (let j = 0; j < questionArray[i].answers.length; j++) {
         var a = $("<button>");
+
+        // add class to the button
+        a.addClass("btn-answer");
+        // adds a data attribute
+        a.data("name", questionArray[i].answers[j]);
+
         //label buttons
         a.text(questionArray[i].answers[j]);
 
-        //adds button to div
+        //if else statement, randomQuestion.answers is e qual to randomQuestion.correctAnswer, then add btn-correct answer
+
+        if (questionArray[i].answers[j] == questionArray[i].correctAnswer) {
+          a.addClass("btn-correctAnswer");
+          a.addClass("btn-answer");
+        } else {
+          a.addClass("btn-answer");
+        }
+
         $("#answer-display").append(a);
       }
+
+      //adds button to div
+      $("#answer-display").append(a);
     }
+  }
+
+  $("#answer-display").on("click", ".btn-answer", function(event) {
+    //get answer from clicked element
+    event.preventDefault();
+    var answer = $(".btn-answer").val;
+    //get correct answer from parent element
+    var correctAnswer = $(this).hasClass("btn-correctAnswer");
+    console.log(correctAnswer);
+    //correct logic
+    if (correctAnswer) {
+      $("#alert-box").text("You got it, daddy-o!");
+      // numberCorrect++;
+
+      setTimeout(nextQuestion, 2000);
+      stopTimer();
+      // checkScore();
+    } else {
+      $("#alert-box").text(
+        "You're cruisin' for a bruisin'- that answer is wrong!"
+      );
+      // numberIncorrect++;
+      setTimeout(nextQuestion, 2000);
+      stopTimer();
+      // checkScore();
+    }
+  });
+
+  function nextQuestion() {
+    $("#question-display").empty();
+    $("#answer-display").empty();
+    $("#countdown").empty();
+
+    timer = 11;
+    startTimer();
+    firstQuestion();
+    console.log("nextQuestion is running!");
   }
 };
