@@ -1,6 +1,7 @@
 window.onload = function() {
     let intervalId;
     let timer = 10;
+    var i = 0;
     //need set of questions
   
     let questionArray = [
@@ -98,9 +99,11 @@ window.onload = function() {
       nextQuestion();
     }
   
-    function firstQuestion() {
-      //Get first question
-      for (let i = 0; i < questionArray.length; i++) {
+    function firstQuestion(i) {
+      //Get first questio
+      
+      for (i = 0; i < questionArray.length; i++) {
+       
         $("#question-display").html(questionArray[i].question);
   
         //Loop through question array and create buttons for each answer
@@ -167,7 +170,7 @@ window.onload = function() {
   
       timer = 11;
       startTimer();
-      firstQuestion();
-      console.log("nextQuestion is running!");
+      firstQuestion(questionArray[i].question);
+      console.log("nextQuestion is running! ", [questionArray[i].question]);
     }
   };
