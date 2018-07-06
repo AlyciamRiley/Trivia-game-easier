@@ -90,8 +90,6 @@ window.onload = function() {
   }
 
   function getQuestions() {
-    //Get first questio
-
     for (i = 0; i < questionArray.length; i++) {
       panel.append("<h2>" + questionArray[i].question + "</h2>");
 
@@ -109,6 +107,14 @@ window.onload = function() {
         );
       }
     }
+    var a = $("<button>");
+
+    a.addClass("submit-btn");
+    a.text("Submit!");
+    $(a).appendTo($(panel)).before("<br />");
+
+
+
   }
 
   function checkScore() {
@@ -178,7 +184,7 @@ function displayResults(){
     getQuestions();
   });
 
-  $("#submit").on("click", function() {
+  $(".submit-btn").on("click", function() {
     stopTimer();
     checkScore();
     displayResults();
