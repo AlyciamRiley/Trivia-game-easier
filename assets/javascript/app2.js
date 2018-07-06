@@ -1,4 +1,5 @@
 window.onload = function() {
+  var panel = $("#quiz-area");
     let intervalId;
     let timer = 10;
     var i = 0;
@@ -96,51 +97,54 @@ window.onload = function() {
   
     function stopTimer() {
       clearInterval(intervalId);
-      nextQuestion();
+      // nextQuestion();
     }
   
-    function firstQuestion(i) {
+    function firstQuestion() {
       //Get first questio
       
       for (i = 0; i < questionArray.length; i++) {
        
-        $("#question-display").html(questionArray[i].question);
+        panel.append("<h2>" + questionArray[i].question + "</h2>");
   
         //Loop through question array and create buttons for each answer
         // Clear button div of any newly created buttons
-        $("#answer-display").empty();
+        
         for (let j = 0; j < questionArray[i].answers.length; j++) {
-          var a = $("<button>");
+
+          panel.append("<input type='radio' name='question-" + i +
+        "' value='" + questionArray[i].answers[j] + "''>" + questionArray[i].answers[j]);
+
+         
+  //         var a = $("<input type = 'radio'>");
   
-          // add class to the button
-          a.addClass("btn-answer");
-          // adds a data attribute
-          a.data("name", questionArray[i].answers[j]);
+  //         // add class to the button
+  //         a.addClass("btn-answer");
+  //         // adds a data attribute
+  //         a.data("name", questionArray[i].answers[j]);
   
-          //label buttons
-          a.text(questionArray[i].answers[j]);
+  //         //label buttons
+  //         a.text(questionArray[i].answers[j]);
   
-          //if else statement, randomQuestion.answers is e qual to randomQuestion.correctAnswer, then add btn-correct answer
+  //         //if else statement, randomQuestion.answers is e qual to randomQuestion.correctAnswer, then add btn-correct answer
   
-          if (questionArray[i].answers[j] == questionArray[i].correctAnswer) {
-            a.addClass("btn-correctAnswer");
-            a.addClass("btn-answer");
-          } else {
-            a.addClass("btn-answer");
-          }
-  
-          $("#answer-display").append(a);
+  //         if (questionArray[i].answers[j] == questionArray[i].correctAnswer) {
+  //           a.addClass("btn-correctAnswer");
+  //           a.addClass("btn-answer");
+  //         } else {
+  //           a.addClass("btn-answer");
+  //         }
+  // //adds button to div
+  //         panel.append(a);
         }
   
-        //adds button to div
-        $("#answer-display").append(a);
       }
     }
   
     $("#answer-display").on("click", ".btn-answer", function(event) {
       //get answer from clicked element
       event.preventDefault();
-      var answer = $(".btn-answer").val;
+      // var answer = $(".btn-answer").val;
       //get correct answer from parent element
       var correctAnswer = $(this).hasClass("btn-correctAnswer");
       console.log(correctAnswer);
@@ -170,7 +174,7 @@ window.onload = function() {
   
       timer = 11;
       startTimer();
-      firstQuestion(questionArray[i].question);
+      firstQuestion();
       console.log("nextQuestion is running! ", [questionArray[i].question]);
     }
   };
