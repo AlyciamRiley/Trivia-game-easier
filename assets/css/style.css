@@ -39,6 +39,11 @@ h3 {
     font-size: 17px;
     
 }
+
+h4 {
+    font-size: 20px;
+    font-weight: bold;
+}
 #sub-heading{
     line-height: 50px;
     text-align: center;
@@ -90,7 +95,7 @@ h3 {
     padding: 15px;
 }
 
-.btn,  .submit-btn {
+.btn,  #submit-btn {
    background-color: #FFF; 
     border: none;
     color: #91d0e2;
@@ -108,19 +113,19 @@ h3 {
 #startGame {
     font-size: 40px;
 }
-.submit-btn{
+#submit-btn{
     font-size: 30px;
     border: 3px solid #91d0e2;
     border-radius: 3px;
     color: #91d0e2;
     padding: 5px;
     margin-left: 150px;
-    margin-top: 15px;
+    margin-top: 25px;
     
 }
 
 
-.btn:hover, .btn:focus,  .submit-btn:hover,  .submit-btn:focus {
+.btn:hover, .btn:focus,  #submit-btn:hover,  #submit-btn:focus {
     color: #fff;
     background-color: #91d0e2;
     border-color: #91d0e2; 

@@ -1,5 +1,4 @@
 window.onload = function() {
-  var panel = $("#quiz-area");
   let intervalId;
   let timer = 120;
   var correct = 0;
@@ -93,14 +92,14 @@ window.onload = function() {
     //Get first questio
 
     for (i = 0; i < questionArray.length; i++) {
-      panel.append("<h2>" + questionArray[i].question + "</h2>");
+      $("#quiz-area").append("<h2>" + questionArray[i].question + "</h2>");
 
       //Loop through question array and create buttons for each answer
       // Clear button div of any newly created buttons
 
       for (let j = 0; j < questionArray[i].answers.length; j++) {
-        panel.append(
-          "<input type='radio' name='question-" +
+        $("#quiz-area").append(
+          "<h3><input type='radio' name='question-"  +
             i +
             "' value='" +
             questionArray[i].answers[j] +
@@ -109,6 +108,7 @@ window.onload = function() {
         );
       }
     }
+    $("#quiz-area").append("<button id='submit-btn'>Done</button>");
   }
 
   function checkScore() {
@@ -146,9 +146,6 @@ window.onload = function() {
       } else {
         incorrect++;
       }
-
-      console.log("correct" , correct);
-      console.log("incorrect", incorrect);
     
     });
 
@@ -163,14 +160,20 @@ window.onload = function() {
   }
 
 function displayResults(){
-  panel.empty();
+  $("#quiz-area").empty();
   $("#timer-area").empty();
-  panel.append("<h2>" + correct + "</h2>");
-  panel.append("<h2>" + incorrect + "</h2>");
+  $("#quiz-area").append("<h3>Correct:  " + correct + "</h3>");
+  $("#quiz-area").append("<h3> Incorrect:  " + incorrect + "</h3>");
+
+  if(correct > incorrect) {
+    $("#quiz-area").prepend("<h4>You win, Daddy-o!</h4><br>")
+  } else {
+    $("#quiz-area").prepend("<h4>You're cruisin' for a bruisin', try again!</h4><br>")
+  }
 }
   
   // Click Events
-  $("#startGame").on("click", function() {
+  $(document).on("click", "#startGame", function() {
     $("#startGame").replaceWith();
 
     startTimer();
@@ -178,10 +181,8 @@ function displayResults(){
     getQuestions();
   });
 
-  $("#submit").on("click", function() {
-    stopTimer();
+  $(document).on("click", "#submit-btn", function() {
     checkScore();
     displayResults();
-    console.log("onclick is working");
   });
 };
