@@ -4,7 +4,6 @@ window.onload = function() {
   let timer = 120;
   var correct = 0;
   var incorrect = 0;
-  var a = $("<button>");
   //need set of questions
 
   let questionArray = [
@@ -91,12 +90,17 @@ window.onload = function() {
   }
 
   function getQuestions() {
+    //Get first questio
+
     for (i = 0; i < questionArray.length; i++) {
       panel.append("<h2>" + questionArray[i].question + "</h2>");
 
+      //Loop through question array and create buttons for each answer
+      // Clear button div of any newly created buttons
+
       for (let j = 0; j < questionArray[i].answers.length; j++) {
         panel.append(
-          "<h3><input type='radio' name='question-</h3>" +
+          "<input type='radio' name='question-" +
             i +
             "' value='" +
             questionArray[i].answers[j] +
@@ -105,10 +109,6 @@ window.onload = function() {
         );
       }
     }
-    
-    a.addClass("submit-btn");
-    a.text("Submit!");
-    panel.append(a);
   }
 
   function checkScore() {
@@ -147,8 +147,9 @@ window.onload = function() {
         incorrect++;
       }
 
-      console.log("correct", correct);
+      console.log("correct" , correct);
       console.log("incorrect", incorrect);
+    
     });
 
     //Question 5
@@ -161,23 +162,23 @@ window.onload = function() {
     });
   }
 
-  function displayResults() {
-    panel.empty();
-    $("#timer-area").empty();
-    panel.append("<h2>" + correct + "</h2>");
-    panel.append("<h2>" + incorrect + "</h2>");
-  }
-
+function displayResults(){
+  panel.empty();
+  $("#timer-area").empty();
+  panel.append("<h2>" + correct + "</h2>");
+  panel.append("<h2>" + incorrect + "</h2>");
+}
+  
   // Click Events
   $("#startGame").on("click", function() {
-      $("#startGame").replaceWith();
+    $("#startGame").replaceWith();
 
     startTimer();
     decrement();
     getQuestions();
   });
 
-  $(a).on("click", function() {
+  $("#submit").on("click", function() {
     stopTimer();
     checkScore();
     displayResults();
