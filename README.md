@@ -25,7 +25,6 @@ Displays time left, question, and available answers to choose from.
 
 ## Future Development
 
-- Questions are repeating themselves. Currently working on having the code flag the questions as answered=true/false
 - Track high scores via a Mongo database.
 - Ultimate goal is to re-do this application into a full MERN stack app.
 
