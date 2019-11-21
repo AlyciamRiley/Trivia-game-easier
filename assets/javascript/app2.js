@@ -3,6 +3,10 @@ window.onload = function() {
   let timer = 120;
   var correct = 0;
   var incorrect = 0;
+  var currentQuestion = 0;
+  var currentOptions = 0;
+  
+  $('#nextQuestion').hide();
   //need set of questions
 
   let questionArray = [
@@ -89,28 +93,29 @@ window.onload = function() {
   }
 
   function getQuestions() {
-    //Get first questio
+    //Get first questi
+    $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + '<class="options">' + questionArray[currentQuestion].answers + '</div>');
+      var totalQuestions = $('.questions').length;
+      console.log(totalQuestions);
+      var questions = $('.questions');
+      var options = $('.option');
+      $('.questions').show();
 
-    for (i = 0; i < questionArray.length; i++) {
-      $("#quiz-area").append("<h2>" + questionArray[i].question + "</h2>");
-
-      //Loop through question array and create buttons for each answer
-      // Clear button div of any newly created buttons
-
-      for (let j = 0; j < questionArray[i].answers.length; j++) {
-        $("#quiz-area").append(
-          "<h3><input type='radio' name='question-"  +
-            i +
-            "' value='" +
-            questionArray[i].answers[j] +
-            "''>" +
-            questionArray[i].answers[j]
-        );
-      }
-    }
     $("#quiz-area").append("<button id='submit-btn'>Done</button>");
-  }
+    $('#submit-btn').hide();
+    $('#startGame').hide();
+    $('#nextQuestion').show();
+    $(questions.get(currentQuestion)).fadeIn();
+    $(options.get(currentOptions)).fadeIn();
 
+    $('#nextQuestion').click(function () {
+      currentQuestion++;
+      currentOptions++;
+      $('.questions').html(questionArray[currentQuestion].question).fadeIn();
+      $('.options').html(questionArray[currentQuestion].answers).fadeIn();
+    });
+
+  }
   function checkScore() {
     //Queston 1
     $.each($("input[name='question-0']:checked"), function() {
@@ -175,7 +180,6 @@ function displayResults(){
   // Click Events
   $(document).on("click", "#startGame", function() {
     $("#startGame").replaceWith();
-
     startTimer();
     decrement();
     getQuestions();
