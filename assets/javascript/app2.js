@@ -92,42 +92,32 @@ window.onload = function () {
 
   function getQuestions() {
     questionArray[currentQuestion].answers.forEach(function (btn) {
-      var displayBtns = '<div class="btn answers" attr="' + btn + '">' + btn + '</div>'
+      var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
       console.log(btn);
       allBtns.push(displayBtns);
     })
-
-
     $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + '<div class="options">' + allBtns + '</div><div class="btn next nextQuestion">Next</div>');
     $('.questions').show();
     $("#quiz-area").append("<button id='submit-btn'>Done</button>");
     $('#submit-btn').hide();
     $('#startGame').hide();
     $('.nextQuestion').show();
-
-    $('.nextQuestion').click(function () {
-      newBtns = [];
-      currentQuestion++;
-      currentOptions++;
-      questionArray[currentOptions].answers.forEach(function (btn) {
-        var displayBtns = '<div class="btn answers">' + btn + '</div>'
-        newBtns.push(displayBtns);
-      })
-
-      $('.questions').html(questionArray[currentQuestion].question).fadeIn();
-      $('.options').html(newBtns).fadeIn();
-    });
+    $('.nextQuestion').click(function(){
+      nextQuestion();
+    })
   }
 
-  function checkScore() {
-    //Queston 1
-      if ($(this).val() === questionArray[currentQuestion].correctAnswer) {
-        correct++;
-        console.log("true")
-      } else {
-        incorrect++;
-        console.log()
-      }
+
+  function nextQuestion(){
+    newBtns = [];
+    currentQuestion++;
+    currentOptions++;
+    questionArray[currentOptions].answers.forEach(function (btn) {
+      var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
+      newBtns.push(displayBtns);
+      $('.questions').html(questionArray[currentQuestion].question).fadeIn();
+      $('.options').html(newBtns).fadeIn();
+    })
   }
 
   function displayResults() {
@@ -135,7 +125,6 @@ window.onload = function () {
     $("#timer-area").empty();
     $("#quiz-area").append("<h3>Correct:  " + correct + "</h3>");
     $("#quiz-area").append("<h3> Incorrect:  " + incorrect + "</h3>");
-
     if (correct > incorrect) {
       $("#quiz-area").prepend("<h4>You win, Daddy-o!</h4><br>")
     } else {
@@ -154,13 +143,16 @@ window.onload = function () {
  
   $(document).on("click", ".answers", function () {
     console.log("this was clicked")
-    console.log(this.val)
-    if ($(this).val() === questionArray[currentQuestion].correctAnswer) {
+    console.log(questionArray[currentQuestion].correctAnswer);
+    if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
       correct++;
       console.log("true")
+      nextQuestion();
+      console.log(correct);
     } else {
       incorrect++;
-      console.log()
+      console.log("false ")
+      nextQuestion();
     }
   });
 };
