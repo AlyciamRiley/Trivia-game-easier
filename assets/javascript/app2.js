@@ -3,6 +3,7 @@ window.onload = function () {
   let timer = 120;
   var correct = 0;
   var incorrect = 0;
+  var chosen = 0;
   var currentQuestion = 0;
   var currentOptions = 0;
   var allBtns = [];
@@ -101,12 +102,11 @@ window.onload = function () {
     $("#quiz-area").append("<button id='submit-btn'>Done</button>");
     $('#submit-btn').hide();
     $('#startGame').hide();
-    $('.nextQuestion').show();
+    $('.nextQuestion').show();  
     $('.nextQuestion').click(function(){
       nextQuestion();
     })
   }
-
 
   function nextQuestion(){
     newBtns = [];
@@ -132,6 +132,15 @@ window.onload = function () {
     }
   }
 
+  function checkComplete() {
+    console.log(chosen);
+    if (chosen == questionArray.length) {
+      displayResults();
+    } else {
+      console.log("not complete")
+    }
+  }
+
   // Click Events
   $(document).on("click", "#startGame", function () {
     $("#startGame").replaceWith();
@@ -141,17 +150,19 @@ window.onload = function () {
   });
 
  
+  //checks if answer is corerct
   $(document).on("click", ".answers", function () {
-    console.log("this was clicked")
+    checkComplete();
     console.log(questionArray[currentQuestion].correctAnswer);
     if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
       correct++;
-      console.log("true")
+      chosen++;
+      console.log(chosen);
       nextQuestion();
-      console.log(correct);
     } else {
       incorrect++;
-      console.log("false ")
+      chosen++;
+      console.log(chosen);
       nextQuestion();
     }
   });
