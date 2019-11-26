@@ -5,10 +5,12 @@ window.onload = function() {
   var incorrect = 0;
   var currentQuestion = 0;
   var currentOptions = 0;
+  var allBtns = [];
+  var newBtns = [];
+
   
   $('#nextQuestion').hide();
-  //need set of questions
-
+  
   let questionArray = [
     {
       question:
@@ -92,27 +94,45 @@ window.onload = function() {
     // nextQuestion();
   }
 
-  function getQuestions() {
-    //Get first questi
-    $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + '<class="options">' + questionArray[currentQuestion].answers + '</div>');
-      var totalQuestions = $('.questions').length;
-      console.log(totalQuestions);
-      var questions = $('.questions');
-      var options = $('.option');
-      $('.questions').show();
+  function getQuestions() {   
+    var answerSelection = questionArray[currentOptions].answers;
+    // var btn = '<div class="btn">' + answerSelections + '</div>';
 
-    $("#quiz-area").append("<button id='submit-btn'>Done</button>");
-    $('#submit-btn').hide();
-    $('#startGame').hide();
-    $('#nextQuestion').show();
-    $(questions.get(currentQuestion)).fadeIn();
-    $(options.get(currentOptions)).fadeIn();
+
+    // answerSelection.map(function(answerSelections){
+    //   var btn = '<div class="btn">' + answerSelections + '</div>';
+    //   return allBtns.push(btn);
+    // })
+
+    // allBtns.map(btns => displayBtns.push(btns));
+
+    questionArray[currentQuestion].answers.forEach(function(btn){
+      var displayBtns = '<div class="btn">' + btn + '</div>'
+      allBtns.push(displayBtns);
+      console.log(displayBtns);
+    })
+
+    
+    $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + '<div class="options">' + allBtns + '</div>');
+      // var totalQuestions = $('.questions').length;
+      $('.questions').show();
+      $("#quiz-area").append("<button id='submit-btn'>Done</button>");
+      $('#submit-btn').hide();
+      $('#startGame').hide();
+      $('#nextQuestion').show();
 
     $('#nextQuestion').click(function () {
+      newBtns = [];
       currentQuestion++;
       currentOptions++;
+      questionArray[currentOptions].answers.forEach(function (btn) {
+        var displayBtns = '<div class="btn">' + btn + '</div>'
+      newBtns.push(displayBtns);
+      })
+      
       $('.questions').html(questionArray[currentQuestion].question).fadeIn();
-      $('.options').html(questionArray[currentQuestion].answers).fadeIn();
+      $('.options').html(newBtns).fadeIn();
+
     });
 
   }
