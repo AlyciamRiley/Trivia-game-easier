@@ -71,7 +71,6 @@ window.onload = function () {
   ];
 
   var totalQuestions = questionArray.length;
-  console.log(totalQuestions);
   //this is your timer.  It is working.  Do not touch it.
   function startTimer() {
     intervalId = setInterval(decrement, 1000);
@@ -133,12 +132,9 @@ window.onload = function () {
   }
 
   function checkComplete() {
-    console.log(chosen);
-    if (chosen == questionArray.length) {
+    if (chosen == totalQuestions) {
       displayResults();
-    } else {
-      console.log("not complete")
-    }
+    } 
   }
 
   // Click Events
@@ -153,16 +149,13 @@ window.onload = function () {
   //checks if answer is corerct
   $(document).on("click", ".answers", function () {
     checkComplete();
-    console.log(questionArray[currentQuestion].correctAnswer);
     if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
       correct++;
       chosen++;
-      console.log(chosen);
       nextQuestion();
     } else {
       incorrect++;
       chosen++;
-      console.log(chosen);
       nextQuestion();
     }
   });
