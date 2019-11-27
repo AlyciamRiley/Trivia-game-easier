@@ -1,6 +1,6 @@
 window.onload = function () {
   var intervalId;
-  var timer = 120;
+  var timer = 30;
   var correct = 0;
   var incorrect = 0;
   var chosen = 0;
@@ -89,7 +89,7 @@ window.onload = function () {
   }
 
   function stopTimer() {
-    timer = 6;
+    timer = 31;
     clearInterval(intervalId);
   }
 
@@ -98,7 +98,7 @@ window.onload = function () {
       var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
       allBtns.push(displayBtns);
     })
-    $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + "<div class='options'>" + allBtns.join(' ') + '</div><div class="btn next nextQuestion">Next</div>');
+    $("#quiz-area").append("<div class='animation-wrapper'><div class='questions'>" + questionArray[currentQuestion].question + '</div>' + "<div class='options'>" + allBtns.join(' ') + '</div></div><div class="btn next nextQuestion">Next</div>');
     $('.questions').show();
     $("#quiz-area").append("<button id='submit-btn'>Done</button>");
     $('#submit-btn').hide();
@@ -119,11 +119,11 @@ window.onload = function () {
     currentOptions++;
     questionArray[currentOptions].answers.forEach(function (btn) {
       var displayBtns = '<div class="btn answers second" value="' + btn + '">' + btn + '</div>'
-      newBtns.push(displayBtns); 
-
+      newBtns.push(displayBtns);
       $('.questions').html(questionArray[currentQuestion].question).fadeIn();
       $('.options').html(newBtns).fadeIn();
     })
+    $('.animation-wrapper').toggle("slide");
   }
 
   function displayResults() {
@@ -155,11 +155,13 @@ window.onload = function () {
   //checks if answer is corerct
   $(document).on("click", ".answers", function () {
     if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
+      $('.animation-wrapper').toggle("slide");
       correct++;
-      chosen++;
+      chosen++; 
       checkComplete();
       nextQuestion();
     } else {
+      $('.animation-wrapper').toggle("slide");
       incorrect++;
       chosen++;
       checkComplete();
