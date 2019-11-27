@@ -1,6 +1,6 @@
 window.onload = function () {
   let intervalId;
-  let timer = 120;
+  let timer = 6;
   var correct = 0;
   var incorrect = 0;
   var chosen = 0;
@@ -81,19 +81,22 @@ window.onload = function () {
     $("#countdown").html("<span>" + timer + "<span>");
 
     if (timer === 0) {
-      stopTimer();
+      chosen++;
+      incorrect++;
+      checkComplete();
+      nextQuestion();
     }
   }
 
+
   function stopTimer() {
+    timer = 6;
     clearInterval(intervalId);
-    // nextQuestion();
   }
 
   function getQuestions() {
     questionArray[currentQuestion].answers.forEach(function (btn) {
       var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
-      console.log(btn);
       allBtns.push(displayBtns);
     })
     $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + '<div class="options">' + allBtns + '</div><div class="btn next nextQuestion">Next</div>');
@@ -107,7 +110,9 @@ window.onload = function () {
     })
   }
 
-  function nextQuestion(){
+  function nextQuestion() {
+    stopTimer();
+    startTimer();
     newBtns = [];
     currentQuestion++;
     currentOptions++;
@@ -118,6 +123,7 @@ window.onload = function () {
       $('.options').html(newBtns).fadeIn();
     })
   }
+
 
   function displayResults() {
     $("#quiz-area").empty();
@@ -148,14 +154,18 @@ window.onload = function () {
  
   //checks if answer is corerct
   $(document).on("click", ".answers", function () {
-    checkComplete();
+    
     if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
       correct++;
       chosen++;
+      console.log("correct", correct);
+      checkComplete();
       nextQuestion();
     } else {
       incorrect++;
       chosen++;
+      console.log("incorrect")
+      checkComplete();
       nextQuestion();
     }
   });
