@@ -81,6 +81,7 @@ h4 {
     flex-direction: column;
 }
 
+
 .btn,
 #submit-btn {
     background-color: #FFF;
@@ -98,6 +99,7 @@ h4 {
     border-radius: 3px;
     color: #3a393f;
     font-size: 14px;
+    margin-bottom: 15px;
 }
 
 .btn.next {
@@ -141,6 +143,3 @@ h4 {
     border-color: #91d0e2;
 }
 
-#countdown {
-    font-size: 95px;
-}

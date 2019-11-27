@@ -1,6 +1,6 @@
 window.onload = function () {
-  let intervalId;
-  let timer = 6;
+  var intervalId;
+  var timer = 120;
   var correct = 0;
   var incorrect = 0;
   var chosen = 0;
@@ -12,7 +12,7 @@ window.onload = function () {
 
   $('.nextQuestion').hide();
 
-  let questionArray = [{
+  var questionArray = [{
       question: "Who recorded the original version of the song &quot;Hound Dog&quot;?",
       answers: [
         'Willa Mae Big Mama Thornton',
@@ -88,7 +88,6 @@ window.onload = function () {
     }
   }
 
-
   function stopTimer() {
     timer = 6;
     clearInterval(intervalId);
@@ -99,13 +98,15 @@ window.onload = function () {
       var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
       allBtns.push(displayBtns);
     })
-    $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + '<div class="options">' + allBtns + '</div><div class="btn next nextQuestion">Next</div>');
+    $("#quiz-area").append("<div class='questions'>" + questionArray[currentQuestion].question + '</div>' + "<div class='options'>" + allBtns.join(' ') + '</div><div class="btn next nextQuestion">Next</div>');
     $('.questions').show();
     $("#quiz-area").append("<button id='submit-btn'>Done</button>");
     $('#submit-btn').hide();
     $('#startGame').hide();
     $('.nextQuestion').show();  
     $('.nextQuestion').click(function(){
+      chosen++;
+      checkComplete();
       nextQuestion();
     })
   }
@@ -117,13 +118,13 @@ window.onload = function () {
     currentQuestion++;
     currentOptions++;
     questionArray[currentOptions].answers.forEach(function (btn) {
-      var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
-      newBtns.push(displayBtns);
+      var displayBtns = '<div class="btn answers second" value="' + btn + '">' + btn + '</div>'
+      newBtns.push(displayBtns); 
+
       $('.questions').html(questionArray[currentQuestion].question).fadeIn();
       $('.options').html(newBtns).fadeIn();
     })
   }
-
 
   function displayResults() {
     $("#quiz-area").empty();
@@ -132,8 +133,8 @@ window.onload = function () {
     $("#quiz-area").append("<h3> Incorrect:  " + incorrect + "</h3>");
     if (correct > incorrect) {
       $("#quiz-area").prepend("<h4>You win, Daddy-o!</h4><br>")
-    } else {
-      $("#quiz-area").prepend("<h4>You're cruisin' for a bruisin', try again!</h4><br>")
+      } else {
+        $("#quiz-area").prepend("<h4>You're cruisin' for a bruisin', try again!</h4><br>")
     }
   }
 
@@ -143,7 +144,6 @@ window.onload = function () {
     } 
   }
 
-  // Click Events
   $(document).on("click", "#startGame", function () {
     $("#startGame").replaceWith();
     startTimer();
@@ -154,19 +154,17 @@ window.onload = function () {
  
   //checks if answer is corerct
   $(document).on("click", ".answers", function () {
-    
     if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
       correct++;
       chosen++;
-      console.log("correct", correct);
       checkComplete();
       nextQuestion();
     } else {
       incorrect++;
       chosen++;
-      console.log("incorrect")
       checkComplete();
       nextQuestion();
     }
   });
+
 };
