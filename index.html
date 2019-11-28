@@ -15,30 +15,27 @@
 </head>
 
 <body>
-    <div id="main-body">
+    <div class="main-body">
         <h1>Atomic Trivia!</h1>
-        <p id="sub-heading">Crawl out through the fallout and test your knowledge of 1950's Rock 'n Roll!</p>
-
+        <p class="sub-heading">Crawl out through the fallout and test your knowledge of 1950's Rock 'n Roll!</p>
         <div class="container">
-            <div class="row">
-                <div class="col-md-1">
-                    <img id="cat" img src="assets/images/BlackCat.jpg">
+            <div class="timer-area">
+                <span class="countdown"></span>
+            </div>
+            <div class="quiz-area">
+                <button type="button" id="startGame" class="btn">Start</button>
+            </div>
+            <div class="results">
+                <div class="scoreboard">
+                    <div class="correct">Correct<div class="numCorrect"></div>
+                    </div>
+                    <div class="incorrect">Incorrect<div class="numIncorrect"></div>
+                    </div>
                 </div>
-
-
-                <div class="col-md-3" id="timer-area">
-                    <p id="tick-tock">Tick-Tock:
-                        <br>
-                        <span id="countdown"></span>
-                    </p>
-                </div>
-
-
-                <div class="col-md-8" id="quiz-area">
-                    <button type="button" id="startGame" class="btn btn-primary btn-lg">Start</button>
-                </div>
+                <button type="button" class="retry btn">Retry</button> 
             </div>
         </div>
+    </div>
     </div>
     <script src="assets/javascript/app2.js"></script>
 </body>
