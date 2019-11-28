@@ -1,26 +1,28 @@
-window.onload = function() {
-  let intervalId;
-  let timer = 120;
+window.onload = function () {
+  var intervalId;
+  var timer = 30;
   var correct = 0;
   var incorrect = 0;
-  //need set of questions
+  var chosen = 0;
+  var currentQuestion = 0;
+  var currentOptions = 0;
+  var allBtns = [];
+  var newBtns = [];
 
-  let questionArray = [
-    {
-      question:
-        "Who recorded the original version of the song &quot;Hound Dog&quot;?",
+
+  var questionArray = [{
+      question: "Who recorded the original version of the song &quot;Hound Dog&quot;?",
       answers: [
-        'Willa Mae "Big Mama" Thornton',
+        'Willa Mae Big Mama Thornton',
         "Elvis Presley",
         "Carl Perkins",
         "Chuck Berry",
         "Miley Cyrus"
       ],
-      correctAnswer: 'Willa Mae "Big Mama" Thornton'
+      correctAnswer: 'Willa Mae Big Mama Thornton'
     },
     {
-      question:
-        "Who was marketed by her record company as the &quot;Female Elvis&quot;?",
+      question: "Who was marketed by her record company as the &quot;Female Elvis&quot;?",
       answers: [
         "Wanda Jackson",
         "Janis Martin",
@@ -31,8 +33,7 @@ window.onload = function() {
       correctAnswer: "Janis Martin"
     },
     {
-      question:
-        "Who sang the 1957 song &quot;Whole Lotta Shakin Goin On&quot;?",
+      question: "Who sang the 1957 song &quot;Whole Lotta Shakin Goin On&quot;?",
       answers: [
         "Elvis Presley",
         "Jerry Lee Lewis",
@@ -43,8 +44,7 @@ window.onload = function() {
       correctAnswer: "Jerry Lee Lewis"
     },
     {
-      question:
-        "&quot;Rebel-Rouser&quot;, &quot;Cannonball&quot;, and &quot;Because They Are Young&quot; were all hits by which artist?",
+      question: "&quot;Rebel-Rouser&quot;, &quot;Cannonball&quot;, and &quot;Because They Are Young&quot; were all hits by which artist?",
       answers: [
         "The Big Bopper",
         "Jerry Lee Lewis",
@@ -56,8 +56,7 @@ window.onload = function() {
     },
 
     {
-      question:
-        "Who spent three weeks at No.1 in 1957 with &quot;That’ll be the Day&quot;?",
+      question: "Who spent three weeks at No.1 in 1957 with &quot;That’ll be the Day&quot;?",
       answers: [
         "Buddy Holly",
         "June Carter",
@@ -69,120 +68,114 @@ window.onload = function() {
     }
   ];
 
-  //this is your timer.  It is working.  Do not touch it.
+  var totalQuestions = questionArray.length;
+
+
+  $('.nextQuestion').hide();
+  $('.retry').hide();
+  $('.results').css('display', 'none');
+  $('.timer-area').css('display', 'none');
+
   function startTimer() {
     intervalId = setInterval(decrement, 1000);
   }
 
   function decrement() {
     timer--;
-    $("#countdown").html("<span>" + timer + "<span>");
+    $('.countdown').html("<span>" + timer + "<span>");
 
     if (timer === 0) {
-      stopTimer();
+      chosen++;
+      incorrect++;
+      checkComplete();
+      nextQuestion();
     }
   }
 
   function stopTimer() {
+    timer = 31;
     clearInterval(intervalId);
-    // nextQuestion();
   }
 
   function getQuestions() {
-    //Get first questio
+    questionArray[currentQuestion].answers.forEach(function (btn) {
+      var displayBtns = '<div class="btn answers" value="' + btn + '">' + btn + '</div>'
+      allBtns.push(displayBtns);
+    })
+    $('.quiz-area').append("<div class='animation-wrapper'><div class='questions'>" + questionArray[currentQuestion].question + '</div>' + "<div class='options'>" + allBtns.join(' ') + '</div></div><div class="btn next nextQuestion">Next</div></div>');
+    $('.questions').show();
+    $(".quiz-area").append("<button id='submit-btn'>Done</button>");
+    $('#submit-btn').hide();
+    $('#startGame').hide();
+    $('.results').css('display', 'none');
+    $('.nextQuestion').show();
+    $('.nextQuestion').click(function () {
+      chosen++;
+      checkComplete();
+      nextQuestion();
+    })
+  }
 
-    for (i = 0; i < questionArray.length; i++) {
-      $("#quiz-area").append("<h2>" + questionArray[i].question + "</h2>");
+  function nextQuestion() {
+    stopTimer();
+    startTimer();
+    newBtns = [];
+    currentQuestion++;
+    currentOptions++;
+    questionArray[currentOptions].answers.forEach(function (btn) {
+      var displayBtns = '<div class="btn answers second" value="' + btn + '">' + btn + '</div>'
+      newBtns.push(displayBtns);
+      $('.questions').html(questionArray[currentQuestion].question).fadeIn();
+      $('.options').html(newBtns).fadeIn();
+    })
+    // $('.animation-wrapper').toggle("slide");
+  }
 
-      //Loop through question array and create buttons for each answer
-      // Clear button div of any newly created buttons
-
-      for (let j = 0; j < questionArray[i].answers.length; j++) {
-        $("#quiz-area").append(
-          "<h3><input type='radio' name='question-"  +
-            i +
-            "' value='" +
-            questionArray[i].answers[j] +
-            "''>" +
-            questionArray[i].answers[j]
-        );
-      }
+  function displayResults() {
+    $('.quiz-area').remove();
+    $('.timer-area').remove();
+    $('.results').css('display', 'flex');
+    $('.retry').show();
+    $('.numCorrect').html(correct);
+    $('.numIncorrect').html(incorrect);
+    if (correct > incorrect) {
+      $('.results').prepend("<h4>You win, Daddy-o!</h4><br>")
+    } else {
+      $('.results').prepend("<h4>You're cruisin' for a bruisin', try again!</h4><br>")
     }
-    $("#quiz-area").append("<button id='submit-btn'>Done</button>");
+
   }
 
-  function checkScore() {
-    //Queston 1
-    $.each($("input[name='question-0']:checked"), function() {
-      if ($(this).val() === questionArray[0].correctAnswer) {
-        correct++;
-      } else {
-        incorrect++;
-      }
-    });
-
-    //Question 2
-    $.each($("input[name='question-1']:checked"), function() {
-      if ($(this).val() === questionArray[1].correctAnswer) {
-        correct++;
-      } else {
-        incorrect++;
-      }
-    });
-
-    //Question 3
-    $.each($("input[name='question-2']:checked"), function() {
-      if ($(this).val() === questionArray[2].correctAnswer) {
-        correct++;
-      } else {
-        incorrect++;
-      }
-    });
-
-    //Question 4
-    $.each($("input[name='question-3']:checked"), function() {
-      if ($(this).val() === questionArray[3].correctAnswer) {
-        correct++;
-      } else {
-        incorrect++;
-      }
-    
-    });
-
-    //Question 5
-    $.each($("input[name='question-4']:checked"), function() {
-      if ($(this).val() === questionArray[4].correctAnswer) {
-        correct++;
-      } else {
-        incorrect++;
-      }
-    });
+  function checkComplete() {
+    if (chosen == totalQuestions) {
+      displayResults();
+    }
   }
 
-function displayResults(){
-  $("#quiz-area").empty();
-  $("#timer-area").empty();
-  $("#quiz-area").append("<h3>Correct:  " + correct + "</h3>");
-  $("#quiz-area").append("<h3> Incorrect:  " + incorrect + "</h3>");
-
-  if(correct > incorrect) {
-    $("#quiz-area").prepend("<h4>You win, Daddy-o!</h4><br>")
-  } else {
-    $("#quiz-area").prepend("<h4>You're cruisin' for a bruisin', try again!</h4><br>")
-  }
-}
-  
-  // Click Events
-  $(document).on("click", "#startGame", function() {
-    $("#startGame").replaceWith();
-
+  $(document).on("click", "#startGame", function () {
+    $('#startGame').replaceWith();
+    $('.timer-area').css('display', 'flex');
     startTimer();
     decrement();
     getQuestions();
   });
 
-  $(document).on("click", "#submit-btn", function() {
-    checkScore();
-    displayResults();
+  $(document).on("click", ".retry", function () {
+      location.reload();
   });
+
+  $(document).on("click", ".answers", function () {
+    if ($(this).attr('value') === questionArray[currentQuestion].correctAnswer) {
+      correct++;
+      chosen++;
+      checkComplete();
+      nextQuestion();
+    } else {
+      incorrect++;
+      chosen++;
+      checkComplete();
+      nextQuestion();
+    }
+  });
+
 };
