@@ -41,6 +41,7 @@ h4 {
     margin: 15px auto auto 100px;
     padding: 35px;
     background-color: #fff;
+    opacity: 0.90;
 }
 
 .sub-heading {
@@ -91,6 +92,7 @@ h4 {
     text-decoration: none;
     font-size: 40px;
     font-weight: 700;
+    text-transform: uppercase;
 }
 
 #startGame {
