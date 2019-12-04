@@ -15,7 +15,7 @@ Play here: https://alyciamriley.github.io/atomic-trivia/
 
 ## Screenshots
 
-![Question](assets/images/screenshot.PNG)
+![Question](assets/images/screenshot2.PNG)
 Displays time left, question, and available answers to choose from.
 
 ## Built With
